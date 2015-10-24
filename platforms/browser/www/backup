@@ -1,0 +1,140 @@
+usefull unused code
+
+//on home backup
+ <!DOCTYPE html>
+<!-- CSP support mode (required for Windows Universal apps): https://docs.angularjs.org/api/ng/directive/ngCsp -->
+<html lang="en" ng-app="app" ng-csp>
+<head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- JS dependencies (order matters!) -->
+    <script src="scripts/platformOverrides.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/onsen/js/onsenui.js"></script>
+
+    <!-- CSS dependencies -->
+    <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
+    <link rel="stylesheet" href="lib/onsen/css/onsen-css-component-custom.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- CSP support mode (required for Windows Universal apps) -->
+    <link rel="stylesheet" href="lib/angular/angular-csp.css" />
+    
+
+    <title>*APPS_NAME*</title>
+
+</head>
+
+<body ng-controller="AppController">
+    <!-- Cordova reference -->
+    <script src="cordova.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="js/app2.js"></script>
+
+    <ons-tabbar>
+        <ons-tab page="home.html" label="Home" icon="ion-home" active="true"></ons-tab>
+        <ons-tab page="nfcscan.html" label="Scan" icon="ion-pound"></ons-tab>
+        <ons-tab page="db.html" label="DB Test" icon="ion-pound"></ons-tab>
+        <ons-tab page="test.html" label="Test" icon="ion-pound"></ons-tab>
+    </ons-tabbar>
+
+
+
+    <ons-template id="home.html">
+    <ons-page>
+    <ons-navigator var="navi">
+        
+            <ons-toolbar>
+                <div align="center" class="right">
+                    <input type="search" ng-model="searchText" placeholder="Cari" class="text-input--underbar" />
+                </div>
+                <div class="center">Master Details</div>
+
+            </ons-toolbar>
+
+            <ons-list ng-controller="MasterController">
+                <ons-list-item modifier="chevron" class="item" ng-repeat="item in items | filter:searchText" ng-click="showDetail($index)">
+                    <ons-row>
+                        <ons-col width="60px">
+                            <div class="item-thum"></div>
+                        </ons-col>
+                        <ons-col>
+                            <header>
+                                <span class="item-title">{{item.title}}</span>
+                                <span class="item-label">{{item.label}}</span>
+                            </header>
+                            <p class="item-desc">{{item.desc}}</p>
+                        </ons-col>
+                    </ons-row>
+                </ons-list-item>
+            </ons-list>
+        </ons-navigator>
+    </ons-page>
+</ons-template>
+<script id="non-ndef-template" type="text/x-handlebars-template">
+        <p>Scanned a non-NDEF NFC tag</p>
+        <p>
+            Tag Id: <strong>{{ bytesToHexString id }}</strong>
+        </p>
+    </script>
+
+    <script id="tag-template" type="text/x-handlebars-template">
+        <p>Scanned an NDEF tag with {{ ndefMessage.length }} {{ pluralize ndefMessage.length 'record' 'records' }}</p>
+
+        {{!
+            BB10 and WP8 will not have any meta info
+            Android P2P will not have id, but will have type
+        }}
+        <dl>
+            {{#if id}}
+            <dt>Tag Id</dt>             <dd>{{ bytesToHexString id }}</dd>
+            {{/if}}
+            
+            {{#if type}}
+            <dt>Tag Type</dt>           <dd>{{ type }}</dd>
+            {{/if}}
+
+            {{#if maxSize }}
+            <dt>Max Size</dt>           <dd>{{ maxSize }} bytes</dd>
+            {{/if}}            
+
+            {{#if freeSpaceSize }}
+            <dt>Free Space</dt>         <dd>{{ freeSpaceSize }} bytes</dd>
+            {{/if}}
+
+            {{#if id}}
+            <dt>Is Writable</dt>        <dd>{{ toString isWritable }}</dd>
+            <dt>Can Make Read Only</dt> <dd>{{ toString canMakeReadOnly }}</dd>
+            {{/if}}            
+        </dl>
+
+        {{#each ndefMessage}}  {{! does not read well, iterating on records non messages}}
+        <div class='record'>
+            Record {{ @index }}:<br/>
+            TNF: <b>{{ tnfToString tnf }}</b><br/>        
+            {{#if tnf}}
+                Record Type: <b>{{ bytesToString type }}</b><br/>
+                Payload: <b>{{ decodePayload this }}</b><br/>
+                {{#if id}}
+                    Record Id: <b>{{ bytesToString id }}</b><br/>            
+                {{/if}}
+            {{/if}}
+        </div>
+        {{/each}}
+    </script>
+    
+    <script type="text/javascript" charset="utf-8" src="js/handlebars2.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/nfc2.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+
+
+
+</body>
+</html>
+
+
+    

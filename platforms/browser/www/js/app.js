@@ -20,10 +20,14 @@
 
 */
 
-  module.controller('LoginController', function($scope){
-    $scope.changePage = function(index){
-      $scope.loginNav.pushPage('home.html', null);
-    }
+  module.controller('LoginController', function($scope,$location){
+
+      $scope.doLogin = function(location){
+         $location.update("/home");
+       };
+
+      
+
   });
 
   module.controller('DBController',function($scope, $http){
@@ -31,14 +35,32 @@
      ).success(function(response){$scope.stat = response;});
   });
 
-  module.controller('MasterController', function($scope, $data) {
-    $scope.items = $data.items;
-    $scope.tested = $data.items; 
+  module.controller('MasterController', function($scope,/*$data,*/ $http) {
+    $http.get('http://hackathon.jelastic.elastx.net/getALLKTP.php'
+     ).success(function(response){
+        // /var selectedItem = response;
+        $scope.items = response;
 
+    });
+     /*
+    $scope.items = $data.items;
+    $scope.log($data.items);
+    */
     $scope.showDetail = function(index) {
+
+      /*
+      $http.get('http://hackathon.jelastic.elastx.net/getALLKTP.php'
+     ).success(function(response){
+        var selectedItem = $data.items[index];
+        $data.selectedItem = selectedItem;
+        $scope.navi.pushPage('detail.html', {title : selectedItem.title});
+
+    });
+*/
       var selectedItem = $data.items[index];
       $data.selectedItem = selectedItem;
       $scope.navi.pushPage('detail.html', {title : selectedItem.title});
+     
     };
   });
 

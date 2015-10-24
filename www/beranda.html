@@ -1,7 +1,7 @@
-<ons-template id="beranda.html">
-    <ons-page>
+
+   
     <ons-navigator var="navi">
-        
+         <ons-page>
             <ons-toolbar>
                 <div align="center" class="right">
                     <input type="search" ng-model="searchText" placeholder="Cari" class="text-input--underbar" />
@@ -18,14 +18,15 @@
                         </ons-col>
                         <ons-col>
                             <header>
-                                <span class="item-title">{{item.title}}</span>
-                                <span class="item-label">{{item.label}}</span>
+                                <span class="item-title">{{item.NIK}}</span>
+                                <span class="item-label">{{item.tag_id}}</span>
                             </header>
-                            <p class="item-desc">{{item.desc}}</p>
+                            <br>
+                            <p class="item-desc">{{item.tempat}}</p>
                         </ons-col>
                     </ons-row>
                 </ons-list-item>
             </ons-list>
+                </ons-page>
+
         </ons-navigator>
-    </ons-page>
-</ons-template>

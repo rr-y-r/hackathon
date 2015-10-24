@@ -20,10 +20,14 @@
 
 */
 
-  module.controller('LoginController', function($scope){
-    $scope.changePage = function(index){
-      $scope.loginNav.pushPage('home.html', null);
-    }
+  module.controller('LoginController', function($scope,$location){
+
+      $scope.doLogin = function(location){
+         $location.update("/home");
+       };
+
+      
+
   });
 
   module.controller('DBController',function($scope, $http){
