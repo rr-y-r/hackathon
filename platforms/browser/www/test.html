@@ -1,31 +1,37 @@
+    
     <ons-template id="test.html">
         <ons-page>
-            <div ng-init="friends = [{name:'John', phone:'555-1276'},
-                                     {name:'Mary', phone:'800-BIG-MARY'},
-                                     {name:'Mike', phone:'555-4321'},
-                                     {name:'Adam', phone:'555-5678'},
-                                     {name:'Julie', phone:'555-8765'},
-                                     {name:'Juliette', phone:'555-5678'}]"></div>
+            <div ng-init="data.items = [
+          {
+              title: 'Item 1 Title',
+              label: '4h',
+              desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+          },
+          {
+              title: 'Another Item Title',
+              label: '6h',
+              desc: 'Ut enim ad minim veniam.'
+          },
+          {
+              title: 'Yet Another Item Title',
+              label: '1day ago',
+              desc: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
+          },
+          {
+              title: 'Yet Another Item Title',
+              label: '1day ago',
+              desc: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
+          }
+      ];"></div>
 
             <label>Search: <input ng-model="searchText"></label>
             <table id="searchTextResults">
               <tr><th>Name</th><th>Phone</th></tr>
-              <tr ng-repeat="friend in friends | filter:searchText">
-                <td>{{friend.name}}</td>
-                <td>{{friend.phone}}</td>
+              <tr ng-repeat="item in data.items | filter:searchText">
+                <td>{{item.title}}</td>
+                <td>{{item.label}}</td>
               </tr>
             </table>
-            <hr>
-            <label>Any: <input ng-model="search.$"></label> <br>
-            <label>Name only <input ng-model="search.name"></label><br>
-            <label>Phone only <input ng-model="search.phone"></label><br>
-            <label>Equality <input type="checkbox" ng-model="strict"></label><br>
-            <table id="searchObjResults">
-              <tr><th>Name</th><th>Phone</th></tr>
-              <tr ng-repeat="friendObj in friends | filter:search:strict">
-                <td>{{friendObj.name}}</td>
-                <td>{{friendObj.phone}}</td>
-              </tr>
-            </table>
+
         </ons-page>
 </ons-template>

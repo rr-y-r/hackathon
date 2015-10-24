@@ -44,11 +44,15 @@
     <ons-navigator var="navi">
         
             <ons-toolbar>
+                <div align="center" class="right">
+                    <input type="search" ng-model="searchText" placeholder="Cari" class="text-input--underbar" />
+                </div>
                 <div class="center">Master Details</div>
+
             </ons-toolbar>
 
             <ons-list ng-controller="MasterController">
-                <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
+                <ons-list-item modifier="chevron" class="item" ng-repeat="item in items | filter:searchText" ng-click="showDetail($index)">
                     <ons-row>
                         <ons-col width="60px">
                             <div class="item-thum"></div>

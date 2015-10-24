@@ -1,28 +1,81 @@
+<!DOCTYPE html>
+<!-- CSP support mode (required for Windows Universal apps): https://docs.angularjs.org/api/ng/directive/ngCsp -->
+<html lang="en" ng-app="app" ng-csp>
+<head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
 
-<ons-navigator var="navi">
-<ons-page>
-    <ons-toolbar>
-        <div class="center">Master Details</div>
-    </ons-toolbar>
+    <!-- JS dependencies (order matters!) -->
+    <script src="scripts/platformOverrides.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/onsen/js/onsenui.js"></script>
 
-    <ons-list ng-controller="MasterController">
-        <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
-            <ons-row>
-                <ons-col width="60px">
-                    <div class="item-thum"></div>
-                </ons-col>
-                <ons-col>
-                    <header>
-                        <span class="item-title">{{item.title}}</span>
-                        <span class="item-label">{{item.label}}</span>
-                    </header>
-                    <p class="item-desc">{{item.desc}}</p>
-                </ons-col>
-            </ons-row>
-        </ons-list-item>
+    <!-- CSS dependencies -->
+    <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
+    <link rel="stylesheet" href="lib/onsen/css/onsen-css-component-custom.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
 
-    </ons-list>
-</ons-page>
-</ons-navigator>
+    <!-- CSP support mode (required for Windows Universal apps) -->
+    <link rel="stylesheet" href="lib/angular/angular-csp.css" />
+    <script src="js/app.js"></script>
+
+    <title>*APPS_NAME*</title>
+
+</head>
+
+<body ng-controller="AppController">
+    <!-- Cordova reference -->
+    <script src="cordova.js"></script>
+    <script src="scripts/index.js"></script>
+
+
+    <ons-tabbar>
+        <ons-tab page="home.html" label="Home" icon="ion-home" active="true"></ons-tab>
+        <ons-tab page="nfcscan.html" label="Scan" icon="ion-pound"></ons-tab>
+        <ons-tab page="db.html" label="DB Test" icon="ion-pound"></ons-tab>
+        <ons-tab page="test.html" label="Test" icon="ion-pound"></ons-tab>
+    </ons-tabbar>
+
+
+
+    <ons-template id="home.html">
+    <ons-page>
+    <ons-navigator var="navi">
+        
+            <ons-toolbar>
+                <div align="center" class="right">
+                    <input type="search" ng-model="searchText" placeholder="Cari" class="text-input--underbar" />
+                </div>
+                <div class="center">Master Details</div>
+
+            </ons-toolbar>
+
+            <ons-list ng-controller="MasterController">
+                <ons-list-item modifier="chevron" class="item" ng-repeat="item in items | filter:searchText" ng-click="showDetail($index)">
+                    <ons-row>
+                        <ons-col width="60px">
+                            <div class="item-thum"></div>
+                        </ons-col>
+                        <ons-col>
+                            <header>
+                                <span class="item-title">{{item.title}}</span>
+                                <span class="item-label">{{item.label}}</span>
+                            </header>
+                            <p class="item-desc">{{item.desc}}</p>
+                        </ons-col>
+                    </ons-row>
+                </ons-list-item>
+            </ons-list>
+        </ons-navigator>
+    </ons-page>
+</ons-template>
+
+
+
+
+</body>
+</html>
+
 
     

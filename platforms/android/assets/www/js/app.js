@@ -20,6 +20,12 @@
 
 */
 
+  module.controller('LoginController', function($scope){
+    $scope.changePage = function(index){
+      $scope.loginNav.pushPage('home.html', null);
+    }
+  });
+
   module.controller('DBController',function($scope, $http){
     $http.get('http://hackathon.jelastic.elastx.net/dbtest.php'
      ).success(function(response){$scope.stat = response;});
@@ -27,6 +33,7 @@
 
   module.controller('MasterController', function($scope, $data) {
     $scope.items = $data.items;
+    $scope.tested = $data.items; 
 
     $scope.showDetail = function(index) {
       var selectedItem = $data.items[index];
@@ -63,5 +70,7 @@
 
       return data;
   });
+
+
 })();
 
