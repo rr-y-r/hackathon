@@ -1,0 +1,33 @@
+<ons-tabbar>
+        <ons-tab page="login.html" label="Home" icon="ion-home" active="true"></ons-tab>
+        <ons-tab page="home.html" label="Data" icon="ion-pound"></ons-tab>
+        <ons-tab page="db.html" label="TestData" icon="ion-pound"></ons-tab>
+        <ons-tab page="nfcscan.html" label="Login" icon="ion-pound"></ons-tab>
+</ons-tabbar>
+
+<ons-page>
+    <ons-toolbar>
+        <div class="center">Master Details</div>
+    </ons-toolbar>
+
+    <ons-list ng-controller="MasterController">
+        <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
+            <ons-row>
+                <ons-col width="60px">
+                    <div class="item-thum"></div>
+                </ons-col>
+                <ons-col>
+                    <header>
+                        <span class="item-title">{{item.title}}</span>
+                        <span class="item-label">{{item.label}}</span>
+                    </header>
+                    <p class="item-desc">{{item.desc}}</p>
+                </ons-col>
+            </ons-row>
+        </ons-list-item>
+
+    </ons-list>
+</ons-page>
+
+
+    

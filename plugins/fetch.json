@@ -30,5 +30,22 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "phonegap-plugin-contentsync": {
+        "source": {
+            "type": "registry",
+            "id": "phonegap-plugin-contentsync"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.chariotsolutions.nfc.plugin": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/chariotsolutions/phonegap-nfc.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

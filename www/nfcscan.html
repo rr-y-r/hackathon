@@ -1,0 +1,21 @@
+<ons-template id="nfcscan.html">
+    <ons-navigator var="nfcScanNav">
+        <ons-page ng-controller="nfcScanController">
+            <h1>LOGIN</h1>
+            <div id="tagContents">
+                <div class="hidden">
+                    Tap e-KTP anda untuk masuk dalam aplikasi
+                </div>
+            </div>
+
+            <script id="non-ndef-template" type="text/x-handlebars-template">
+                <p>Kode Tag e-KTP</p>
+                <p>
+                    Tag Id: <strong>{{ bytesToHexString id }}</strong>
+                </p>
+            </script>
+
+        </ons-page>
+    </ons-navigator>
+</ons-template>
+

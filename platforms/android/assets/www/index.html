@@ -1,46 +1,177 @@
 <!DOCTYPE html>
-<!--
-    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+<!-- CSP support mode (required for Windows Universal apps): https://docs.angularjs.org/api/ng/directive/ngCsp -->
+<html lang="en" ng-app="app" ng-csp>
+<head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
 
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+    <!-- JS dependencies (order matters!) -->
+    <script src="scripts/platformOverrides.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/onsen/js/onsenui.js"></script>
 
-    http://www.apache.org/licenses/LICENSE-2.0
+    <!-- CSS dependencies -->
+    <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="lib/onsen/css/onsen-css-components-blue-basic-theme.css" />
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+    <!-- CSP support mode (required for Windows Universal apps) -->
+    <link rel="stylesheet" href="lib/angular/angular-csp.css" />
+    <script src="js/app.js"></script>
+
+    <title>*APPS_NAME*</title>
+
+    <style>
+        .item {
+            padding: 10px;
+            line-height: 1;
+        }
+
+        .item-thum {
+            background-color: #ccc;
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+        }
+
+        .item-title {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .item-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.3;
+            margin: 4px 0 0 0;
+            padding: 0 30px 0 0;
+        }
+
+        .item-label {
+            font-size: 12px;
+            color: #999;
+            float: right;
+        }
+    </style>
+
+    <style>
+        .tab {
+            line-height: 1;
+        }
+
+        .tab-icon {
+            font-size: 24px;
+            padding: 0;
+            margin: 0;
+            vertical-align: top;
+            line-height: 28px;
+        }
+
+        .tab-label {
+            line-height: 11px;
+            vertical-align: top;
+            font-size: 11px;
+        }
+
+    </style>
+
+</head>
+
+<body ng-controller="AppController">
+    <!-- Cordova reference -->
+    <script src="cordova.js"></script>
+    <script src="scripts/index.js"></script>
+
+    <ons-tabbar>
+        <ons-tab page="nfcScan.html" label="Home" icon="ion-home" active="true"></ons-tab>
+        <ons-tab page="home.html" label="Data" icon="ion-pound"></ons-tab>
+        <ons-tab page="db.html" label="TestData" icon="ion-pound"></ons-tab>
+        <ons-tab page="login.html" label="Login" icon="ion-pound"></ons-tab>
+    </ons-tabbar>
+
+    <ons-template id="nfcScan.html">
+        <ons-navigator var="navi">
+
+                <ons-page ng-controller="NFCController">
+                    <ons-toolbar>
+                        <div class="center">Log In</div>
+                        <div class="right"><ons-toolbar-button>Close</ons-toolbar-button></div>
+                    </ons-toolbar>
+                    <div id="tagContents">
+                        <div class="hidden">
+                            Scan a tag to being.
+                        </div>
+                    </div>
+
+                    <script id="non-ndef-template" type="text/x-handlebars-template">
+                        <p>Scanned a non-NDEF NFC tag</p>
+                        <p>
+                            Tag Id: <strong>{{ bytesToHexString id }}</strong>
+                        </p>
+                    </script>
+
+                    <script id="tag-template" type="text/x-handlebars-template">
+                        <p>Scanned an NDEF tag with {{ ndefMessage.length }} {{ pluralize ndefMessage.length 'record' 'records' }}</p>
+
+                        {{!
+                            BB10 and WP8 will not have any meta info
+                            Android P2P will not have id, but will have type
+                        }}
+                        <dl>
+                            {{#if id}}
+                            <dt>Tag Id</dt>             <dd>{{ bytesToHexString id }}</dd>
+                            {{/if}}
+                            
+                            {{#if type}}
+                            <dt>Tag Type</dt>           <dd>{{ type }}</dd>
+                            {{/if}}
+
+                            {{#if maxSize }}
+                            <dt>Max Size</dt>           <dd>{{ maxSize }} bytes</dd>
+                            {{/if}}            
+
+                            {{#if freeSpaceSize }}
+                            <dt>Free Space</dt>         <dd>{{ freeSpaceSize }} bytes</dd>
+                            {{/if}}
+
+                            {{#if id}}
+                            <dt>Is Writable</dt>        <dd>{{ toString isWritable }}</dd>
+                            <dt>Can Make Read Only</dt> <dd>{{ toString canMakeReadOnly }}</dd>
+                            {{/if}}            
+                        </dl>
+
+                        {{#each ndefMessage}}  {{! does not read well, iterating on records non messages}}
+                        <div class='record'>
+                            Record {{ @index }}:<br/>
+                            TNF: <b>{{ tnfToString tnf }}</b><br/>        
+                            {{#if tnf}}
+                                Record Type: <b>{{ bytesToString type }}</b><br/>
+                                Payload: <b>{{ decodePayload this }}</b><br/>
+                                {{#if id}}
+                                    Record Id: <b>{{ bytesToString id }}</b><br/>            
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                        {{/each}}
+                    </script>
+                    
+                    <script type="text/javascript" charset="utf-8" src="js/handlebars.js"></script>
+                    <script type="text/javascript" charset="utf-8" src="js/nfc.js"></script>
+                    <script type="text/javascript">
+                        app.initialize();
+                    </script>
+
+
+                </ons-page>
+
+
+
+    </ons-navigator>
+
+    
+
+
+
+</body>
 </html>
