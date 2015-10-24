@@ -1,6 +1,6 @@
 
 <ons-page ng-controller="DetailController">
-
+<ons-template id="detail.html">
     <ons-toolbar>
         <div class="left">
             <ons-back-button>Back</ons-back-button></div>
@@ -15,10 +15,12 @@
                 </ons-col>
                 <ons-col>
                     <header>
+                        <span class="item-title">{{selectedItem.tag_id}}</span>
+                        <span class="item-label">{{item.NIK}}</span>
                         <span class="item-title">{{item.title}}</span>
-                        <span class="item-label">{{item.label}}</span>
+                                <span class="item-label">{{item.label}}</span>
                     </header>
-                    <p class="item-desc">{{item.desc}}</p>
+                    <p class="item-desc">{{item.nama}}</p>
                 </ons-col>
             </ons-row>
         </ons-list-item>
@@ -39,5 +41,6 @@
     </ons-list>
 
     <br>
-
+</ons-template>
 </ons-page>
+

@@ -73,3 +73,10 @@ span.login-tap.ion-card {
     float: right;
 }
 
+.radio-button--list-item {
+    width: 100%;
+    height: 5%; 
+    margin: 0;
+    line-height: 44px;
+}
+

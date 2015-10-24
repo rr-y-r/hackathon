@@ -10,6 +10,7 @@
     <script src="scripts/platformOverrides.js"></script>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
+    <script src="js/jquery-1.11.3.min.js"></script>
 
     <!-- CSS dependencies -->
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
@@ -34,7 +35,7 @@
             <div ng-controller="LoginController">
                 <ons-toolbar>
                     <div class="center">Masuk</div>
-                    <div class="right"><ons-toolbar-button>Close</ons-toolbar-button></div>
+                    <div class="right"><ons-toolbar-button ng-click="doExit()">Close</ons-toolbar-button></div>
                 </ons-toolbar>
                 <div class="login-form">
                     <div id="tagContents">
@@ -44,15 +45,20 @@
                             <span class="login-tap-text">Silahkan Tap E-KTP anda untuk masuk aplikasi</span>
                         </div>
                         <!--need callback, if scan success, go to home, else, alert error-->
-                        <a href="home.html">callback</a>
+                        <br>
+                        <a href="home.html">bypass</a>
                     </div>
                 </div>
 
                 <script id="non-ndef-template" type="text/x-handlebars-template">
-                    <p>Scanned a non-NDEF NFC tag</p>
-                    <p>
-                        Tag Id: <strong>{{ bytesToHexString id }}</strong>
-                    </p>
+                <div onclick="return testAlert($('.tag-id-ktp').text());">
+                    <p>Hasil Deteksi</p>Tag KTP: 
+                    <strong><p class="tag-id-ktp" >
+                        {{ bytesToHexString id }}
+                    </p></strong>
+                    <br>
+                    <p>TAP DISINI UNTUK MELANJUTKAN PROSES OTENTIFIKASI</p>
+                    </div>
                 </script>
 
                 <script id="tag-template" type="text/x-handlebars-template">
@@ -104,6 +110,25 @@
                 <script type="text/javascript" charset="utf-8" src="js/nfc.js"></script>
                 <script type="text/javascript">
                     app.initialize();
+
+                    function check_tag_if_exist(data_tag){
+                        /*url: http://hackathon.jelastic.elastx.net/checkifexist.php?tag_id=data_tag
+                        get
+                            if yes, continue return true,
+                            if no, exit flag false
+                        */
+                        return true;
+                    };
+
+                    function testAlert(data_tag){
+                        /*
+                        if(check_tag_if_exist(data_tag) == 'true'){
+                            window.location.replace('/home.html');
+                        }*/
+                        window.location.replace('home.html');
+                    };
+
+
                 </script>
 
 

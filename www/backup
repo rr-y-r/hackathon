@@ -137,4 +137,107 @@ usefull unused code
 </html>
 
 
+    // backup app.js
+
+    (function(){
+  'use strict';
+  var module = angular.module('app', ['onsen']);
+
+  module.controller('AppController', function($scope, $data) {
+    $scope.doSomething = function() {
+      setTimeout(function() {
+        ons.notification.alert({ message: 'tapped' });
+      }, 100);
+    };
+  });
+
+  module.controller('DetailController', function($scope, $data) {
+    $scope.item = $data.selectedItem;
+  });
+/*
+  module.controller('TabbarController', function($scope){
+
+  });
+
+*/
+
+  module.controller('LoginController', function($scope,$location){
+
+      $scope.doLogin = function(location){
+         $location.update("/home");
+       };
+
+      
+
+  });
+
+  module.controller('DBController',function($scope, $http){
+    $http.get('http://hackathon.jelastic.elastx.net/dbtest.php'
+     ).success(function(response){$scope.stat = response;});
+  });
+
+  module.controller('MasterController', function($scope,/*$data,*/ $http) {
+    $http.get('http://hackathon.jelastic.elastx.net/getALLKTP.php'
+     ).success(function(response,data){
+        // /var selectedItem = response;
+        $scope.items = response;
+
+        $scope.showDetail = function(index) {
+
+        /*
+        $http.get('http://hackathon.jelastic.elastx.net/getALLKTP.php'
+       ).success(function(response){
+          var selectedItem = $data.items[index];
+          $data.selectedItem = selectedItem;
+          $scope.navi.pushPage('detail.html', {title : selectedItem.title});
+
+      });
+  */
+          var selectedItem = response;
+          $data.selectedItem = selectedItem;
+          $scope.navi.pushPage('detail.html', {nama : selectedItem.nama});
+       
+      };
+
+    });
+     /*
+    $scope.items = $data.items;
+    $scope.log($data.items);
+    */
     
+  });
+
+  module.factory('$data', function() {
+      var data = {};
+
+      data.items = [
+          {
+              title: 'Item 1 Title',
+              label: '4h',
+              desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+          },
+          {
+              title: 'Another Item Title',
+              label: '6h',
+              desc: 'Ut enim ad minim veniam.'
+          },
+          {
+              title: 'Yet Another Item Title',
+              label: '1day ago',
+              desc: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
+          },
+          {
+              title: 'Yet Another Item Title',
+              label: '1day ago',
+              desc: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
+          }
+      ];
+
+      return data;
+  });
+
+
+})();
+
+// line 67 home
+<div onclick="return test_user_Alert($('.tag-id-ktp').text());">

@@ -1,0 +1,145 @@
+<head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- JS dependencies (order matters!) -->
+    <script src="scripts/platformOverrides.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/onsen/js/onsenui.js"></script>
+    <script src="js/jquery-1.11.3.min.js"></script>
+
+    <!-- CSS dependencies -->
+    <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
+    <link rel="stylesheet" href="lib/onsen/css/onsen-css-component-custom.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/signup.css" />
+
+    <!-- CSP support mode (required for Windows Universal apps) -->
+    <link rel="stylesheet" href="lib/angular/angular-csp.css" />
+     <script>
+      ons.bootstrap();
+    </script>
+    
+
+    <title>*APPS_NAME*</title>
+
+
+</head>
+
+<body ng-controller="AppController">
+    <!-- Cordova reference -->
+        <script src="js/app.js"></script>
+         <script src="cordova.js"></script>
+         <script src="scripts/index.js"></script>
+    <ons-page>
+      <ons-toolbar>
+        <div class="left"><ons-back-button>Back</ons-back-button></div>
+        <div class="center">Sign up</div>
+      </ons-toolbar>
+
+      <div class="formarea">
+        <div class="form-row">
+          <input type="text" class="text-input--underbar width-half" placeholder="TAG_ID" name="tag_id" value="">
+          <input type="text" class="text-input--underbar width-half" placeholder="NIK" name="NIK" value="" style="border-width-left: 1px">
+        </div>
+
+        <div class="form-row">
+          <input type="text" class="text-input--underbar width-full" placeholder="Tempat" name="tempat" value="">
+        </div>
+
+        <div class="form-row">
+          <input type="text" class="text-input--underbar width-full" placeholder="Nama Lengkap" name="nama" value="">
+        </div>
+        <div class="form-row">
+          <input type="text" class="text-input--underbar width-full" placeholder="Alamat Lengkap" name="alamat" value="">
+        </div>
+        <div class="form-row">
+          <input type="text" class="text-input--underbar width-full" placeholder="Kewarganegaraan" name="kewarganegaraan" value="">
+        </div>
+        <div class="form-row">
+          <input type="text" class="text-input--underbar width-full" placeholder="Masa Berlaku KTP" name="masa_berlaku" value="">
+        </div>
+        <div class="form-row">
+          <ons-toolbar>
+        <div class="center">Radio Buttons</div>
+      </ons-toolbar>
+
+      <ons-list>
+
+        <ons-list-header>Browsers</ons-list-header>
+
+        <ons-list-item modifier="tappable">
+          <label class="radio-button radio-button--list-item">
+            <input type="radio" name="a" checked="checked">
+            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+            Chrome
+          </label>
+        </ons-list-item>
+
+        <ons-list-item modifier="tappable">
+          <label class="radio-button radio-button--list-item">
+            <input type="radio" name="a">
+            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+            Safari
+          </label>
+        </ons-list-item>
+
+        <ons-list-item modifier="tappable">
+          <label class="radio-button radio-button--list-item">
+            <input type="radio" name="a">
+            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+            Internet Explorer
+          </label>
+        </ons-list-item>
+
+        <ons-list-item modifier="tappable">
+          <label class="radio-button radio-button--list-item">
+            <input type="radio" name="a">
+            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+            Opera
+          </label>
+        </ons-list-item>
+
+        <ons-list-item modifier="tappable">
+          <label class="radio-button radio-button--list-item">
+            <input type="radio" name="a">
+            <div class="radio-button__checkmark radio-button--list-item__checkmark"></div>
+            Firefox
+          </label>
+        </ons-list-item>
+      </ons-list>
+          <input type="text" class="text-input--underbar width-full" placeholder="Jenis Agama" name="jenis_agama" value="">
+        </div>
+        <div class="form-row">
+          <input type="text" class="text-input--underbar width-full" placeholder="Jenis Kelamin" name="jenis_kelamin" value="">
+        </div>
+        <div class="form-row">
+          <input type="text" class="text-input--underbar width-full" placeholder="Jenis Pekerjaan" name="jenis_pekerjaan" value="">
+        </div>
+        <div class="form-row">
+          <label class="radio-button">
+            <input type="radio" name="status_perkawinan" checked="checked">
+            <div class="radio-button__checkmark"></div>
+            Sudah Menikah
+          </label>
+
+          <label class="radio-button">
+            <input type="radio" name="status_perkawinan">
+            <div class="radio-button__checkmark"></div>
+            Belum Menikah
+          </label>
+
+          <input type="text" class="text-input--underbar width-full" placeholder="Status Pernikahan" name="status_perkawinan" value="">
+        </div>
+        <ons-button modifier="large--cta">Sign up</ons-button>
+
+
+        <ons-button modifier="large--cta">Sign up</ons-button>
+
+      </div>
+
+    </ons-page>
+
+  </body>
+</html>

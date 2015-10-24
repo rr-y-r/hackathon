@@ -10,6 +10,7 @@
     <script src="scripts/platformOverrides.js"></script>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
+    <script src="js/jquery-1.11.3.min.js"></script>
 
     <!-- CSS dependencies -->
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
@@ -39,8 +40,8 @@
     <ons-tabbar>
         <ons-tab page="home.html" label="Registrasi" icon="ion-home" active="true"></ons-tab>
         <ons-tab page="beranda.html" label="Scan" icon="ion-pound"></ons-tab>
-        <ons-tab page="db.html" label="DB Test" icon="ion-pound"></ons-tab>
-        <ons-tab page="test.html" label="Test" icon="ion-pound"></ons-tab>
+        <!--ons-tab page="db.html" label="DB Test" icon="ion-pound"></ons-tab-->
+        <!--ons-tab page="test.html" label="Test" icon="ion-pound"></ons-tab-->
     </ons-tabbar>
 
     <ons-template id="home.html">
@@ -57,15 +58,20 @@
                         <br>
                         <span class="login-tap-text">Silahkan Tap E-KTP anda untuk masuk aplikasi</span>
                     </div>
+                    <br><a href="registrasi.html">bypass</a>
                     <!--need callback, if scan success, go to home, else, alert error-->
-                    <ons-button modifier="large" class="login-button" ng-click="changePage($index)">callback</ons-button>
+                    <!--ons-button modifier="large" class="login-button" ng-click="changePage($index)">callback</ons-button-->
                 </div>
             </div>
             <script id="non-ndef-template" type="text/x-handlebars-template">
-                <p>Scanned a non-NDEF NFC tag</p>
-                <p>
-                    Tag Id: <strong>{{ bytesToHexString id }}</strong>
-                </p>
+                    <div onclick="return test_user_Alert($('.tag-id-ktp').text());">
+                        <p>Hasil Deteksi</p>Tag KTP: 
+                        <strong><p class="tag-id-ktp" >
+                            {{ bytesToHexString id }}
+                        </p></strong>
+                        <br>
+                        <p>TAP DISINI UNTUK MELANJUTKAN PROSES SCANNING</p>
+                    </div>
             </script>
 
             <script id="tag-template" type="text/x-handlebars-template">
@@ -112,6 +118,32 @@
                 </div>
                 {{/each}}
             </script>
+
+            <script type="text/javascript">
+                    app.initialize();
+
+                    function check_tag_user_if_exist(data_tag){
+                        /*url: http://hackathon.jelastic.elastx.net/checkifexist.php?tag_id=data_tag
+                        get
+                            if yes, continue return true,
+                            if no, exit flag false
+                        */
+                        return false;
+                    };
+
+                    function test_user_Alert(data_tag){
+
+                        if(!check_tag_user_if_exist(data_tag)){
+                            alert('data_belum ada, silahkan mendaftarkan ktp ini');
+                            window.location.replace('registrasi.html');
+                        }else{
+                            alert('else');
+                        }
+                        //window.navigate('/home.html');
+                    };
+
+
+                </script>
         </ons-template>
 
 </body>
